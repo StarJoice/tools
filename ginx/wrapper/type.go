@@ -4,7 +4,6 @@
 package ginx
 
 import (
-	"github.com/StarJoice/tools/ginx/gctx"
 	"github.com/gin-gonic/gin"
 )
 
