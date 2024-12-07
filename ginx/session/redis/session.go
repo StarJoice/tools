@@ -5,6 +5,7 @@ package redis
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/StarJoice/tools/common"
 	"github.com/StarJoice/tools/ginx/session"
 	"github.com/redis/go-redis/v9"
@@ -41,14 +42,25 @@ func (sess *Session) Claims() session.Claims {
 }
 
 func (sess *Session) init(ctx context.Context, kvs map[string]any) error {
+	// 使用 Pipeline 批量处理
 	pip := sess.client.Pipeline()
+
+	// 将 kvs 转换为合适的格式
 	for k, v := range kvs {
-		pip.HSet(ctx, k, v)
+		// HSet 需要传入 map 格式的字段和值
+		// 如果 v 是 struct 或者复杂类型，需要转换为合适的类型
+		serializedValue, _ := json.Marshal(v)
+		pip.HSet(ctx, k, string(serializedValue))
 	}
+
+	// 设置过期时间
 	pip.Expire(ctx, sess.key, sess.expiration)
+
+	// 执行 Pipeline
 	_, err := pip.Exec(ctx)
 	return err
 }
+
 func (sess *Session) Set(ctx context.Context, key string, val any) error {
 	return sess.client.HSet(ctx, sess.key, key, val).Err()
 }
