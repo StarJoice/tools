@@ -43,7 +43,7 @@ func (sess *Session) Claims() session.Claims {
 func (sess *Session) init(ctx context.Context, kvs map[string]any) error {
 	pip := sess.client.Pipeline()
 	for k, v := range kvs {
-		pip.HMSet(ctx, k, v)
+		pip.HSet(ctx, k, v)
 	}
 	pip.Expire(ctx, sess.key, sess.expiration)
 	_, err := pip.Exec(ctx)
