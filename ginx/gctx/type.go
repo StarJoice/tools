@@ -1,7 +1,7 @@
 // @Date 2024/12/6 17:33
 // @Desc 定义自定义的 Context 类型，扩展了 Gin 的默认 Context，提供了对请求参数、查询字符串和 Cookie 的处理。
 
-package contextx
+package gctx
 
 import (
 	"github.com/StarJoice/tools/common"

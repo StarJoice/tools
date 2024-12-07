@@ -4,7 +4,7 @@
 package ginx
 
 import (
-	"github.com/StarJoice/tools/ginx/contextx"
+	"github.com/StarJoice/tools/ginx/gctx"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,7 +27,7 @@ type Result struct {
 	Data any    `json:"data"`
 }
 
-// Context 为 `contextx.Context` 类型的别名，
-// 这样可以在其他地方使用 `Context` 来代替 `contextx.Context`，
+// Context 为 `gctx.Context` 类型的别名，
+// 这样可以在其他地方使用 `Context` 来代替 `gctx.Context`，
 // 方便管理自定义的请求上下文。
-type Context = contextx.Context
+type Context = gctx.Context
