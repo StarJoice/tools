@@ -6,10 +6,16 @@ package ginx
 import (
 	"errors"
 	"github.com/StarJoice/tools/ginx/errs"
+	"github.com/StarJoice/tools/ginx/gctx"
 	"github.com/gin-gonic/gin"
 	"log/slog"
 	"net/http"
 )
+
+// Context 为 `gctx.Context` 类型的别名，
+// 这样可以在其他地方使用 `Context` 来代替 `gctx.Context`，
+// 方便管理自定义的请求上下文。
+type Context = gctx.Context
 
 // WithResult 将一个接受上下文的业务逻辑函数封装成 Gin 的 Handler。
 // 它自动处理业务逻辑中的错误情况，并返回对应的 HTTP 状态码和响应数据。
